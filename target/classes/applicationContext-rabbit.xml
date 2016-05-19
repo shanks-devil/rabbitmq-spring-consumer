@@ -1,0 +1,54 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+          	http://www.springframework.org/schema/beans
+           	http://www.springframework.org/schema/beans/spring-beans.xsd
+           	http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/rabbit
+           	http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="com.github.shanks"></context:component-scan>
+
+	<bean id="rabbitConnectionFactory" class="com.rabbitmq.client.ConnectionFactory">
+		<property name="username" value="wl"></property>
+		<property name="password" value="wl"></property>
+		<property name="virtualHost" value="wl_vhost"></property>
+		<property name="host" value="localhost"></property>
+		<property name="port" value="5672"></property>
+	</bean>
+
+	<bean id="connectionFactory"
+		class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+		<constructor-arg ref="rabbitConnectionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="reviceMessage" class="com.github.shanks.rabbit.consumer.ReviceMessage"></bean>
+
+	<bean id="simpleMessageListenerContainer"
+		class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+		<property name="messageListener" ref="reviceMessage"></property>
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="rabbitAdmin" ref="rabbitAdmin"></property>
+		<property name="queueNames">
+			<list>
+				<value>wl_queue</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="rabbitAdmin" class="org.springframework.amqp.rabbit.core.RabbitAdmin">
+		<constructor-arg ref="connectionFactory"></constructor-arg>
+	</bean>
+	
+	<bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+    	<property name="queue" value="wl_queue"></property>
+    	<property name="routingKey" value="wl"></property>
+    	<property name="exchange" value="wl_exchange"></property>
+    </bean>
+
+	
+</beans>
