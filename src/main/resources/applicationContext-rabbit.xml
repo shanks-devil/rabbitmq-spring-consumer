@@ -20,7 +20,7 @@
 		host="${host}" port="${port}" username="${username}" password="${password}"
 		channel-cache-size="${poolsize}" />
 
-	<rabbit:admin id="amqpAdmin" connection-factory="rabbitConnectionFactory"
+	<rabbit:admin id="rabbitAdmin" connection-factory="rabbitConnectionFactory"
 		auto-startup="true" />
 	
 	<rabbit:queue id="rabbitQueue" name="${queuename}"></rabbit:queue>
