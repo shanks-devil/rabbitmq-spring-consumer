@@ -12,19 +12,16 @@
 	<logger name="org.springframework" additivity="false">
 		<level value="ERROR" />
 		<appender-ref ref="console" />
-		<appender-ref ref="nelo-async" />
 	</logger>
 
 	<logger name="org.apache.commons" additivity="false">
 		<level value="ERROR" />
 		<appender-ref ref="console" />
-		<appender-ref ref="nelo-async" />
 	</logger>
 
 	<logger name="com.rabbitmq" additivity="false">
 		<level value="ERROR" />
 		<appender-ref ref="console" />
-		<appender-ref ref="nelo-async" />
 	</logger>
 
 	<root>
