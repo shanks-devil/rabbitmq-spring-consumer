@@ -18,7 +18,7 @@
 
 	<rabbit:connection-factory id="rabbitConnectionFactory"
 		host="${host}" port="${port}" username="${username}" password="${password}"
-		channel-cache-size="${poolsize}" />
+		channel-cache-size="${poolsize}"  />
 
 	<!-- declare queue and exchange -->
 	<rabbit:queue name="${queuename}" />
@@ -31,7 +31,8 @@
 	</rabbit:direct-exchange>
 	<!-- end declare queue and exchange -->
 
-	<rabbit:admin id="rabbitAdmin" connection-factory="rabbitConnectionFactory" />
+	<rabbit:admin id="rabbitAdmin" connection-factory="rabbitConnectionFactory" auto-startup="true" />
+	
 	<rabbit:listener-container acknowledge="manual"
 		connection-factory="rabbitConnectionFactory">
 		<rabbit:listener ref="reviceMessage" admin="rabbitAdmin"
