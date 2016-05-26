@@ -1,5 +1,6 @@
 package com.github.shanks.rabbit.consumer.mail;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
@@ -24,14 +25,14 @@ public class SendMailService {
 	private MailSender mailSender;
 	
 	public void send(MessageModel message) {
-		log.info("start send mail");
+		log.info("start send mail date {}", DateTime.now().toString("yyyy-MM-DD HH:mm:ss"));
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setFrom(from);
 		mail.setTo(to);
 		mail.setSubject(String.valueOf(message.getMessageId()));
 		mail.setText("this is sent by rabbit " + message);
 		mailSender.send(mail);
-		log.info("end send mail");
+		log.info("end send mail {}, date {}", message , DateTime.now().toString("yyyy-MM-DD HH:mm:ss"));
 	}
 	
 }
