@@ -23,12 +23,7 @@
 	<!-- declare queue and exchange -->
 	<rabbit:queue name="${queuename}" />
 
-	<rabbit:direct-exchange name="${exchange}">
-		<rabbit:bindings>
-			<rabbit:binding key="${routing.key}" queue="${queuename}" >
-			</rabbit:binding>
-		</rabbit:bindings>
-	</rabbit:direct-exchange>
+	<rabbit:direct-exchange name="${exchange}"></rabbit:direct-exchange>
 	<!-- end declare queue and exchange -->
 
 	<rabbit:admin id="rabbitAdmin" connection-factory="rabbitConnectionFactory" auto-startup="true" />
